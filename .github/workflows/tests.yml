@@ -20,14 +20,14 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore ZipValidatorClassLib/ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj
+        run: dotnet restore ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj
 
       - name: Build
-        run: dotnet build ZipValidatorClassLib/ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj --no-restore --configuration Release
+        run: dotnet build ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj --no-restore --configuration Release
 
       - name: Test
         run: >
-          dotnet test ZipValidatorClassLib/ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj
+          dotnet test ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj
           --no-build
           --configuration Release
           --filter "FullyQualifiedName!~HugeECTD"
