@@ -2,8 +2,11 @@ name: ZipValidatorClassLib Tests
 
 on:
   push:
+    paths:
+      - 'ZipValidatorClassLib/**'
   pull_request:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   test:
