@@ -9,6 +9,9 @@ jobs:
   test:
     name: Run Unit Tests
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
 
     steps:
       - name: Checkout
