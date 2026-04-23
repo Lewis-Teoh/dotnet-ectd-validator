@@ -25,6 +25,9 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj
 
+      - name: Check for vulnerable packages
+        run: dotnet list package --vulnerable --include-transitive
+
       - name: Build
         run: dotnet build ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj --no-restore --configuration Release
 
