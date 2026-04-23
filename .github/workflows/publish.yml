@@ -10,42 +10,7 @@ on:
 jobs:
   test:
     name: Run Unit Tests
-    runs-on: ubuntu-latest
-    permissions:
-      checks: write
-      contents: read
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup .NET 8
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Restore dependencies
-        run: dotnet restore ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj
-
-      - name: Build
-        run: dotnet build ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj --no-restore --configuration Release
-
-      - name: Test
-        run: >
-          dotnet test ZipValidatorClassLib.Tests/ZipValidatorClassLib.Tests.csproj
-          --no-build
-          --configuration Release
-          --filter "FullyQualifiedName!~HugeECTD"
-          --logger "trx;LogFileName=test-results.trx"
-          --results-directory ./TestResults
-
-      - name: Publish test results
-        uses: dorny/test-reporter@v3
-        if: always()
-        with:
-          name: xUnit Test Results
-          path: TestResults/test-results.trx
-          reporter: dotnet-trx
+    uses: ./.github/workflows/tests.yml
 
   publish:
     name: Build & Publish
@@ -72,4 +37,3 @@ jobs:
           --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
           --api-key ${{ secrets.GITHUB_TOKEN }}
           --skip-duplicate
-
