@@ -7,7 +7,7 @@ namespace ZipValidatorClassLib.Tests
 {
     public class HelperFunctionUnitTest
     {
-        public const string TEST_FILE_BASE_PATH = ".\\EctdPackageTestFile";
+        public const string TEST_FILE_BASE_PATH = "./EctdPackageTestFile";
 
         [Fact]
         public void IsZipContentType_ValidContentType_ReturnsTrue()
@@ -28,7 +28,7 @@ namespace ZipValidatorClassLib.Tests
         [Fact]
         public void IsPasswordProtected_ZipWithPassword_ReturnsTrue()
         {
-            var stream = new MemoryStream(File.ReadAllBytes($"{TEST_FILE_BASE_PATH}\\protected.zip"));
+            var stream = new MemoryStream(File.ReadAllBytes($"{TEST_FILE_BASE_PATH}/protected.zip"));
             using ZipFile zip = ZipFile.Read(stream);
             bool result = HelperFunction.IsPasswordProtected(zip);
             Assert.True(result);
@@ -37,7 +37,7 @@ namespace ZipValidatorClassLib.Tests
         [Fact]
         public void IsPasswordProtected_ZipWithoutPassword_ReturnsFalse()
         {
-            var stream = new MemoryStream(File.ReadAllBytes($"{TEST_FILE_BASE_PATH}\\unprotected.zip"));
+            var stream = new MemoryStream(File.ReadAllBytes($"{TEST_FILE_BASE_PATH}/unprotected.zip"));
             using ZipFile zip = ZipFile.Read(stream);
             bool result = HelperFunction.IsPasswordProtected(zip);
             Assert.False(result);
@@ -134,7 +134,7 @@ namespace ZipValidatorClassLib.Tests
         [Fact]
         public void IsPdfPasswordProtected_PasswordProtectedPdf_ReturnsTrue()
         {
-            var pdfStream = new MemoryStream(File.ReadAllBytes($"{TEST_FILE_BASE_PATH}\\basic-text-protected.pdf"));
+            var pdfStream = new MemoryStream(File.ReadAllBytes($"{TEST_FILE_BASE_PATH}/basic-text-protected.pdf"));
             bool result = HelperFunction.IsPdfPasswordProtected(pdfStream);
             Assert.True(result);
         }
@@ -142,7 +142,7 @@ namespace ZipValidatorClassLib.Tests
         [Fact]
         public void IsPdfPasswordProtected_NotPasswordProtectedPdf_ReturnsFalse()
         {
-            var pdfStream = new MemoryStream(File.ReadAllBytes($"{TEST_FILE_BASE_PATH}\\basic-text.pdf"));
+            var pdfStream = new MemoryStream(File.ReadAllBytes($"{TEST_FILE_BASE_PATH}/basic-text.pdf"));
             bool result = HelperFunction.IsPdfPasswordProtected(pdfStream);
             Assert.False(result);
         }
