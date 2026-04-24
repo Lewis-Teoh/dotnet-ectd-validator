@@ -94,7 +94,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       packages: write
-      contents: read
+      contents: write
 
     steps:
       - uses: actions/checkout@v6
@@ -110,3 +110,20 @@ jobs:
           --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
           --api-key ${{ secrets.GITHUB_TOKEN }}
           --skip-duplicate
+
+      - name: Extract version
+        id: version
+        run: |
+          VERSION=$(grep -oP '(?<=<Version>)[^<]+' ZipValidatorClassLib/ZipValidatorClassLib.csproj)
+          echo "value=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Tag release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git rev-parse "v${{ steps.version.outputs.value }}" >/dev/null 2>&1; then
+            echo "Tag v${{ steps.version.outputs.value }} already exists, skipping"
+          else
+            git tag v${{ steps.version.outputs.value }}
+            git push origin v${{ steps.version.outputs.value }}
+          fi
