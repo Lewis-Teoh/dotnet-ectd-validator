@@ -1,6 +1,6 @@
 # dotnet-ectd-validator
 
-A .NET 8 class library for validating Singapore eCTD (electronic Common Technical Document) ZIP packages submitted to the Health Sciences Authority (HSA).
+A .NET class library (targets .NET 8 and .NET 10) for validating Singapore eCTD (electronic Common Technical Document) ZIP packages submitted to the Health Sciences Authority (HSA).
 
 ## Overview
 
